@@ -23,14 +23,17 @@ namespace CustomerBackend.Infrastructure.Repositories
         {
             return await _context.Customers
                 .Include(c => c.Company)
-                .FirstOrDefaultAsync(c => c.Id == id && c.IsActive);
+                .FirstOrDefaultAsync(c => c.Id == id && c.IsDeleted == false);
         }
 
         public async Task<IEnumerable<Customer>> GetAllAsync()
         {
             return await _context.Customers
                 .Include(c => c.Company)
-                .Where(c => c.IsActive)
+                .Where(c => !c.IsDeleted
+                    && c.Company != null
+                    && !c.Company.IsDeleted
+                    && c.Company.IsActive)
                 .ToListAsync();
         }
 
@@ -38,7 +41,7 @@ namespace CustomerBackend.Infrastructure.Repositories
         {
             return await _context.Customers
                 .Include(c => c.Company)
-                .Where(c => c.CompanyId == companyId && c.IsActive)
+                .Where(c => c.CompanyId == companyId && c.IsDeleted == false)
                 .ToListAsync();
         }
 
@@ -66,6 +69,7 @@ namespace CustomerBackend.Infrastructure.Repositories
             if (customer != null)
             {
                 customer.IsActive = false;
+                customer.IsDeleted = true;
                 customer.UpdatedDate = DateTime.UtcNow;
                 await _context.SaveChangesAsync();
             }
@@ -74,7 +78,7 @@ namespace CustomerBackend.Infrastructure.Repositories
         public async Task<bool> ExistsAsync(long id)
         {
             return await _context.Customers
-                .AnyAsync(c => c.Id == id && c.IsActive);
+                .AnyAsync(c => c.Id == id && c.IsDeleted == false);
         }
     }
 }

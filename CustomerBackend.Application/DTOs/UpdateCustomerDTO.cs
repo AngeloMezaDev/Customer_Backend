@@ -29,5 +29,7 @@ namespace CustomerBackend.Application.DTOs
 
         [StringLength(200, ErrorMessage = "La dirección no puede exceder los 200 caracteres")]
         public string Address { get; set; }
+
+        public bool IsActive { get; set; }
     }
 }
