@@ -10,13 +10,63 @@ SQL Server
 Swagger para documentación de API
 
 Estructura del Proyecto
+Organización de Carpetas
 CopyCustomer_Backend/
 ├── src/
-│   ├── CustomerBackend.Domain/           # Entidades y reglas de negocio
-│   ├── CustomerBackend.Application/      # Casos de uso y lógica de aplicación
-│   ├── CustomerBackend.Infrastructure/   # Implementaciones de persistencia
-│   └── Customer_Backend/                 # API y configuración
-└── tests/                               # Proyectos de pruebas unitarias
+│   ├── CustomerBackend.Domain/              # Capa de Dominio
+│   │   ├── Entities/                        # Entidades de dominio
+│   │   ├── Interfaces/                      # Interfaces y contratos
+│   │   └── ValueObjects/                    # Objetos de valor
+│   │
+│   ├── CustomerBackend.Application/         # Capa de Aplicación
+│   │   ├── DTOs/                           # Objetos de transferencia de datos
+│   │   ├── Interfaces/                      # Interfaces de servicios
+│   │   ├── Services/                        # Implementación de servicios
+│   │   └── Validators/                      # Validadores de datos
+│   │
+│   ├── CustomerBackend.Infrastructure/      # Capa de Infraestructura
+│   │   ├── Data/                           # Contexto y configuración de EF
+│   │   ├── Repositories/                    # Implementación de repositorios
+│   │   └── Services/                        # Servicios externos
+│   │
+│   └── Customer_Backend/                    # Capa de Presentación (API)
+│       ├── Controllers/                     # Controladores de la API
+│       ├── Middleware/                      # Middleware personalizado
+│       ├── Extensions/                      # Extensiones de servicios
+│       └── Configuration/                   # Archivos de configuración
+│
+└── tests/                                  # Pruebas
+    ├── Customer_Backend.UnitTests/          # Pruebas unitarias
+    └── Customer_Backend.IntegrationTests/   # Pruebas de integración
+Descripción de Capas
+1. Capa de Dominio (CustomerBackend.Domain)
+
+Contiene las entidades del negocio
+Define interfaces principales
+Reglas de negocio centrales
+Sin dependencias externas
+
+2. Capa de Aplicación (CustomerBackend.Application)
+
+Implementa casos de uso
+Orquesta flujos de trabajo
+Define DTOs y mapeos
+Validaciones de datos
+
+3. Capa de Infraestructura (CustomerBackend.Infrastructure)
+
+Implementa persistencia
+Acceso a servicios externos
+Configuración de Entity Framework
+Implementaciones concretas de interfaces
+
+4. Capa de API (Customer_Backend)
+
+Controladores REST
+Configuración de la aplicación
+Manejo de autenticación
+Documentación Swagger
+
 Requisitos Previos
 
 .NET Core SDK 7.0 o superior
