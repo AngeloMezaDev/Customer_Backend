@@ -8,63 +8,6 @@ Tecnologías Utilizadas
 Entity Framework Core
 SQL Server
 Swagger para documentación de API
-
-Estructura del Proyecto
-Organización de Carpetas
-Customer_Backend/
-├── src/
-│   ├── CustomerBackend.Domain/                # Capa de Dominio
-│   │   ├── Entities/                          # Entidades del dominio
-│   │   │   ├── Company.cs
-│   │   │   └── Customer.cs
-│   │   ├── Interfaces/                        # Interfaces y contratos
-│   │   │   ├── IEntity.cs
-│   │   │   ├── IRepository.cs
-│   │   │   └── IUnitOfWork.cs
-│   │   └── ValueObjects/                      # Objetos de valor
-│   │       └── Address.cs
-│   │
-│   ├── CustomerBackend.Application/           # Capa de Aplicación
-│   │   ├── DTOs/                             # Objetos de transferencia
-│   │   │   ├── CompanyDto.cs
-│   │   │   └── CustomerDto.cs
-│   │   ├── Interfaces/                        # Contratos de servicios
-│   │   │   ├── ICompanyService.cs
-│   │   │   └── ICustomerService.cs
-│   │   ├── Services/                          # Servicios de aplicación
-│   │   │   ├── CompanyService.cs
-│   │   │   └── CustomerService.cs
-│   │   └── Validators/                        # Validadores
-│   │       ├── CompanyValidator.cs
-│   │       └── CustomerValidator.cs
-│   │
-│   ├── CustomerBackend.Infrastructure/        # Capa de Infraestructura
-│   │   ├── Data/                             # Contexto EF
-│   │   │   ├── ApplicationDbContext.cs
-│   │   │   └── Configurations/
-│   │   ├── Repositories/                      # Repositorios
-│   │   │   ├── CompanyRepository.cs
-│   │   │   └── CustomerRepository.cs
-│   │   └── Services/                          # Servicios externos
-│   │
-│   └── Customer_Backend/                      # API (Presentación)
-│       ├── Controllers/                       # Controladores
-│       │   ├── CompanyController.cs
-│       │   └── CustomerController.cs
-│       ├── Middleware/                        # Middleware
-│       │   └── ErrorHandlingMiddleware.cs
-│       ├── Extensions/                        # Extensiones
-│       │   └── ServiceCollectionExtensions.cs
-│       └── Configuration/                     # Configuración
-│           └── appsettings.json
-│
-└── tests/                                    # Pruebas
-    ├── CustomerBackend.UnitTests/            # Pruebas unitarias
-    │   ├── Services/
-    │   └── Controllers/
-    └── CustomerBackend.IntegrationTests/     # Pruebas integración
-        ├── Api/
-        └── Repositories/
         
 Descripción de Capas
 1. Capa de Dominio (CustomerBackend.Domain)
@@ -97,9 +40,9 @@ Documentación Swagger
 
 Requisitos Previos
 
-.NET Core SDK 7.0 o superior
-SQL Server 2019 o superior
-Visual Studio 2022 / Visual Studio Code
+- .NET Core SDK 7.0 o superior
+- SQL Server 2019 o superior
+- Visual Studio 2022 / Visual Studio Code
 
 Configuración de Base de Datos
 
