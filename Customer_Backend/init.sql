@@ -64,7 +64,9 @@ BEGIN
         Email NVARCHAR(100) NOT NULL,
         Phone NVARCHAR(20) NULL,
         Address NVARCHAR(200) NULL,
-        is_active BIT NOT NULL DEFAULT 1,
+        created_date DATETIME2  NULL DEFAULT GETDATE(),
+        updated_date DATETIME2 NULL,
+        is_active BIT  NULL DEFAULT 1,
         is_deleted BIT NOT NULL DEFAULT 0,
         CONSTRAINT FK_Customers_Companies FOREIGN KEY (CompanyId) 
             REFERENCES dbo.companies(company_id)
@@ -112,18 +114,20 @@ BEGIN
         Email, 
         Phone, 
         Address,
-        is_deleted
+        is_active,
+        is_deleted,
+        CreatedDate
     )
     VALUES 
     -- Clientes para Tecnología Integral S.A.
-    (1, 'Martin', 'Rodriguez', 'martin.rodriguez@gmail.com', '0912345678', 'Av. Cabildo 1500, CABA', 0),
-    (1, 'Carolina', 'Martinez', 'carolina.martinez@hotmail.com', '0913456789', 'Belgrano 750, CABA', 0),
-    (1, 'Diego', 'Lopez', 'diego.lopez@outlook.com', '0914567890', 'Lavalle 2000, CABA', 0),
+    (1, 'Martin', 'Rodriguez', 'martin.rodriguez@gmail.com', '0912345678', 'Av. Cabildo 1500, CABA', 1, 0, GETDATE()),
+    (1, 'Carolina', 'Martinez', 'carolina.martinez@hotmail.com', '0913456789', 'Belgrano 750, CABA', 1, 0, GETDATE()),
+    (1, 'Diego', 'Lopez', 'diego.lopez@outlook.com', '0914567890', 'Lavalle 2000, CABA', 1, 0, GETDATE()),
     
     -- Clientes para Servicios Industriales del Sur
-    (2, 'Laura', 'Garcia', 'laura.garcia@yahoo.com', '0915678901', 'Alborada XI Etapa', 0),
-    (2, 'Pablo', 'Sanchez', 'pablo.sanchez@gmail.com', '0916789012', 'Mucho lote 2.', 0),
-    (2, 'Ana', 'Fernandez', 'ana.fernandez@gmail.com', '0917890123', 'Suburbio de Guayaquil', 0);
+    (2, 'Laura', 'Garcia', 'laura.garcia@yahoo.com', '0915678901', 'Alborada XI Etapa', 1, 0, GETDATE()),
+    (2, 'Pablo', 'Sanchez', 'pablo.sanchez@gmail.com', '0916789012', 'Mucho lote 2.', 1, 0, GETDATE()),
+    (2, 'Ana', 'Fernandez', 'ana.fernandez@gmail.com', '0917890123', 'Suburbio de Guayaquil', 1, 0, GETDATE());
     
     PRINT 'Datos reales para Customers insertados.';
 END
