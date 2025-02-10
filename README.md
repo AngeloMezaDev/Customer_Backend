@@ -11,33 +11,61 @@ Swagger para documentación de API
 
 Estructura del Proyecto
 Organización de Carpetas
-CopyCustomer_Backend/
+Customer_Backend/
 ├── src/
-│   ├── CustomerBackend.Domain/              # Capa de Dominio
-│   │   ├── Entities/                        # Entidades de dominio
-│   │   ├── Interfaces/                      # Interfaces y contratos
-│   │   └── ValueObjects/                    # Objetos de valor
+│   ├── CustomerBackend.Domain/                # Capa de Dominio
+│   │   ├── Entities/                          # Entidades del dominio
+│   │   │   ├── Company.cs
+│   │   │   └── Customer.cs
+│   │   ├── Interfaces/                        # Interfaces y contratos
+│   │   │   ├── IEntity.cs
+│   │   │   ├── IRepository.cs
+│   │   │   └── IUnitOfWork.cs
+│   │   └── ValueObjects/                      # Objetos de valor
+│   │       └── Address.cs
 │   │
-│   ├── CustomerBackend.Application/         # Capa de Aplicación
-│   │   ├── DTOs/                           # Objetos de transferencia de datos
-│   │   ├── Interfaces/                      # Interfaces de servicios
-│   │   ├── Services/                        # Implementación de servicios
-│   │   └── Validators/                      # Validadores de datos
+│   ├── CustomerBackend.Application/           # Capa de Aplicación
+│   │   ├── DTOs/                             # Objetos de transferencia
+│   │   │   ├── CompanyDto.cs
+│   │   │   └── CustomerDto.cs
+│   │   ├── Interfaces/                        # Contratos de servicios
+│   │   │   ├── ICompanyService.cs
+│   │   │   └── ICustomerService.cs
+│   │   ├── Services/                          # Servicios de aplicación
+│   │   │   ├── CompanyService.cs
+│   │   │   └── CustomerService.cs
+│   │   └── Validators/                        # Validadores
+│   │       ├── CompanyValidator.cs
+│   │       └── CustomerValidator.cs
 │   │
-│   ├── CustomerBackend.Infrastructure/      # Capa de Infraestructura
-│   │   ├── Data/                           # Contexto y configuración de EF
-│   │   ├── Repositories/                    # Implementación de repositorios
-│   │   └── Services/                        # Servicios externos
+│   ├── CustomerBackend.Infrastructure/        # Capa de Infraestructura
+│   │   ├── Data/                             # Contexto EF
+│   │   │   ├── ApplicationDbContext.cs
+│   │   │   └── Configurations/
+│   │   ├── Repositories/                      # Repositorios
+│   │   │   ├── CompanyRepository.cs
+│   │   │   └── CustomerRepository.cs
+│   │   └── Services/                          # Servicios externos
 │   │
-│   └── Customer_Backend/                    # Capa de Presentación (API)
-│       ├── Controllers/                     # Controladores de la API
-│       ├── Middleware/                      # Middleware personalizado
-│       ├── Extensions/                      # Extensiones de servicios
-│       └── Configuration/                   # Archivos de configuración
+│   └── Customer_Backend/                      # API (Presentación)
+│       ├── Controllers/                       # Controladores
+│       │   ├── CompanyController.cs
+│       │   └── CustomerController.cs
+│       ├── Middleware/                        # Middleware
+│       │   └── ErrorHandlingMiddleware.cs
+│       ├── Extensions/                        # Extensiones
+│       │   └── ServiceCollectionExtensions.cs
+│       └── Configuration/                     # Configuración
+│           └── appsettings.json
 │
-└── tests/                                  # Pruebas
-    ├── Customer_Backend.UnitTests/          # Pruebas unitarias
-    └── Customer_Backend.IntegrationTests/   # Pruebas de integración
+└── tests/                                    # Pruebas
+    ├── CustomerBackend.UnitTests/            # Pruebas unitarias
+    │   ├── Services/
+    │   └── Controllers/
+    └── CustomerBackend.IntegrationTests/     # Pruebas integración
+        ├── Api/
+        └── Repositories/
+        
 Descripción de Capas
 1. Capa de Dominio (CustomerBackend.Domain)
 
