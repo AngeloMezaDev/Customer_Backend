@@ -42,5 +42,10 @@ public class Company
     [Column("is_active")]
     public bool IsActive { get; set; } = true;
 
+
+    [Required]
+    [Column("is_deleted")]
+    public bool IsDeleted { get; set; } = false;
+
     public virtual ICollection<Customer> Customers { get; set; }
 }

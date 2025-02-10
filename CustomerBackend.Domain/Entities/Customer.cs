@@ -34,6 +34,17 @@ namespace CustomerBackend.Domain.Entities
         [StringLength(200, ErrorMessage = "La dirección no puede exceder los 200 caracteres")]
         public string Address { get; set; }
 
+        [Required]
+        [Column("is_active")]
+        public bool IsActive { get; set; } = true;
+
+
+        [Required]
+        [Column("is_deleted")]
+        public bool IsDeleted { get; set; } = false;
+
+
+
         // Propiedad de navegación para EF Core
         public virtual Company Company { get; set; }
 

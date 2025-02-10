@@ -37,6 +37,7 @@ BEGIN
         created_date DATETIME2 NOT NULL DEFAULT GETDATE(),
         updated_date DATETIME2 NULL,
         is_active BIT NOT NULL DEFAULT 1,
+        is_deleted BIT NOT NULL DEFAULT 0,
         CONSTRAINT UK_companies_tax_id UNIQUE (tax_id)
     );
 
@@ -63,6 +64,8 @@ BEGIN
         Email NVARCHAR(100) NOT NULL,
         Phone NVARCHAR(20) NULL,
         Address NVARCHAR(200) NULL,
+        is_active BIT NOT NULL DEFAULT 1,
+        is_deleted BIT NOT NULL DEFAULT 0,
         CONSTRAINT FK_Customers_Companies FOREIGN KEY (CompanyId) 
             REFERENCES dbo.companies(company_id)
     );
@@ -86,11 +89,12 @@ BEGIN
         tax_id, 
         address, 
         phone, 
-        email
+        email,
+        is_deleted
     )
     VALUES 
-    (1, 'Empresa de Ejemplo 1', 'TAX001', 'Dirección 1', '+54 9 11 1234-5678', 'empresa1@example.com'),
-    (2, 'Empresa de Ejemplo 2', 'TAX002', 'Dirección 2', '+54 9 11 8765-4321', 'empresa2@example.com');
+    (1, 'Empresa de Ejemplo 1', 'TAX001', 'Dirección 1', '+54 9 11 1234-5678', 'empresa1@example.com', 0),
+    (2, 'Empresa de Ejemplo 2', 'TAX002', 'Dirección 2', '+54 9 11 8765-4321', 'empresa2@example.com', 0);
     
     SET IDENTITY_INSERT dbo.companies OFF;
     
@@ -106,11 +110,12 @@ BEGIN
         LastName, 
         Email, 
         Phone, 
-        Address
+        Address,
+        is_deleted
     )
     VALUES 
-    (1, 'Juan', 'Pérez', 'juan.perez@example.com', '+54 9 11 1111-2222', 'Calle Falsa 123'),
-    (2, 'María', 'González', 'maria.gonzalez@example.com', '+54 9 11 3333-4444', 'Avenida Siempre Viva 742');
+    (1, 'Juan', 'Pérez', 'juan.perez@example.com', '+54 9 11 1111-2222', 'Calle Falsa 123', 0),
+    (2, 'María', 'González', 'maria.gonzalez@example.com', '+54 9 11 3333-4444', 'Avenida Siempre Viva 742', 0);
     
     PRINT 'Datos de ejemplo para Customers insertados.';
 END

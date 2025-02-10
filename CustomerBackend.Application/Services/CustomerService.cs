@@ -23,14 +23,15 @@ namespace CustomerBackend.Application.Services
         public async Task<IEnumerable<CustomerDTO>> GetAllCustomersAsync()
         {
             var customers = await _customerRepository.GetAllAsync();
-            return _mapper.Map<IEnumerable<CustomerDTO>>(customers);
+            var filteredCustomers = customers.Where(x => !x.IsDeleted).ToList();
+            return _mapper.Map<IEnumerable<CustomerDTO>>(filteredCustomers);
         }
 
         public async Task<CustomerDTO> GetCustomerByIdAsync(long id)
         {
             var customer = await _customerRepository.GetByIdAsync(id);
-            if (customer == null)
-                throw new KeyNotFoundException($"Cliente con ID {id} no encontrado");
+            if (customer == null || customer.IsDeleted)
+                throw new KeyNotFoundException($"Cliente con ID {id} no encontrado o eliminado");
 
             return _mapper.Map<CustomerDTO>(customer);
         }
@@ -38,7 +39,8 @@ namespace CustomerBackend.Application.Services
         public async Task<IEnumerable<CustomerDTO>> GetCustomersByCompanyIdAsync(long companyId)
         {
             var customers = await _customerRepository.GetByCompanyIdAsync(companyId);
-            return _mapper.Map<IEnumerable<CustomerDTO>>(customers);
+            var filteredCustomers = customers.Where(x => !x.IsDeleted).ToList();
+            return _mapper.Map<IEnumerable<CustomerDTO>>(filteredCustomers);
         }
 
         public async Task<CustomerDTO> CreateCustomerAsync(CreateCustomerDTO customerDto)
@@ -51,8 +53,8 @@ namespace CustomerBackend.Application.Services
         public async Task<CustomerDTO> UpdateCustomerAsync(UpdateCustomerDTO customerDto)
         {
             var existingCustomer = await _customerRepository.GetByIdAsync(customerDto.Id);
-            if (existingCustomer == null)
-                throw new KeyNotFoundException($"Cliente con ID {customerDto.Id} no encontrado");
+            if (existingCustomer == null || existingCustomer.IsDeleted)
+                throw new KeyNotFoundException($"Cliente con ID {customerDto.Id} no encontrado o eliminado");
 
             _mapper.Map(customerDto, existingCustomer);
             await _customerRepository.UpdateAsync(existingCustomer);
@@ -61,10 +63,12 @@ namespace CustomerBackend.Application.Services
 
         public async Task<bool> DeleteCustomerAsync(long id)
         {
-            if (!await _customerRepository.ExistsAsync(id))
+            var existingCustomer = await _customerRepository.GetByIdAsync(id);
+            if (existingCustomer == null || existingCustomer.IsDeleted)
                 return false;
 
-            await _customerRepository.DeleteAsync(id);
+            existingCustomer.IsDeleted = true;
+            await _customerRepository.UpdateAsync(existingCustomer);
             return true;
         }
     }

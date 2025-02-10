@@ -12,6 +12,9 @@ namespace CustomerBackend.Application.DTOs
         [Required(ErrorMessage = "El ID es obligatorio")]
         public long Id { get; set; }
 
+        public long CompanyId { get; set; }
+
+
         [StringLength(100, MinimumLength = 2, ErrorMessage = "El nombre debe tener entre 2 y 100 caracteres")]
         public string FirstName { get; set; }
 
