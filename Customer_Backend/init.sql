@@ -79,6 +79,7 @@ END
 GO
 
 -- Insertar algunos datos de ejemplo (opcional)
+-- Insertar datos coherentes para companies
 IF NOT EXISTS (SELECT TOP 1 * FROM dbo.companies)
 BEGIN
     SET IDENTITY_INSERT dbo.companies ON;
@@ -93,12 +94,12 @@ BEGIN
         is_deleted
     )
     VALUES 
-    (1, 'Empresa de Ejemplo 1', 'TAX001', 'Dirección 1', '+54 9 11 1234-5678', 'empresa1@example.com', 0),
-    (2, 'Empresa de Ejemplo 2', 'TAX002', 'Dirección 2', '+54 9 11 8765-4321', 'empresa2@example.com', 0);
+    (1, 'Tecnologia Integral S.A.', '0998589655001', 'Av. Malecon 2000', '0914567890', 'contacto@tecintegral.com.ec', 0),
+    (2, 'Servicios Industriales del Sur', '0998741655001', 'Av. Juan Tanca Marengo', '0517654321', 'info@servindustrial.com.ec', 0);
     
     SET IDENTITY_INSERT dbo.companies OFF;
     
-    PRINT 'Datos de ejemplo para companies insertados.';
+    PRINT 'Datos reales para companies insertados.';
 END
 GO
 
@@ -114,10 +115,17 @@ BEGIN
         is_deleted
     )
     VALUES 
-    (1, 'Juan', 'Pérez', 'juan.perez@example.com', '+54 9 11 1111-2222', 'Calle Falsa 123', 0),
-    (2, 'María', 'González', 'maria.gonzalez@example.com', '+54 9 11 3333-4444', 'Avenida Siempre Viva 742', 0);
+    -- Clientes para Tecnología Integral S.A.
+    (1, 'Martin', 'Rodriguez', 'martin.rodriguez@gmail.com', '0912345678', 'Av. Cabildo 1500, CABA', 0),
+    (1, 'Carolina', 'Martinez', 'carolina.martinez@hotmail.com', '0913456789', 'Belgrano 750, CABA', 0),
+    (1, 'Diego', 'Lopez', 'diego.lopez@outlook.com', '0914567890', 'Lavalle 2000, CABA', 0),
     
-    PRINT 'Datos de ejemplo para Customers insertados.';
+    -- Clientes para Servicios Industriales del Sur
+    (2, 'Laura', 'Garcia', 'laura.garcia@yahoo.com', '0915678901', 'Alborada XI Etapa', 0),
+    (2, 'Pablo', 'Sanchez', 'pablo.sanchez@gmail.com', '0916789012', 'Mucho lote 2.', 0),
+    (2, 'Ana', 'Fernandez', 'ana.fernandez@gmail.com', '0917890123', 'Suburbio de Guayaquil', 0);
+    
+    PRINT 'Datos reales para Customers insertados.';
 END
 GO
 
